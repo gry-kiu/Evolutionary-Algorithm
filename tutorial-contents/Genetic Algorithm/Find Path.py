@@ -160,7 +160,7 @@ class GA(object):
             i_ = np.random.randint(0, self.pop_size, size=1)
             j_ = np.random.randint(1, self.DNA_size - 1, size=1)
             flag = True if np.random.randint(0, 2) < 0.5 else False
-            cross_points = [flag] * DNA_SIZE
+            cross_points = [flag] * self.DNA_size
             cross_points[int(j_):] = [not flag] * len(cross_points[int(j_):])
             # mating and produce one child
             parent[cross_points] = pop[i_, cross_points]
@@ -190,7 +190,7 @@ class GA(object):
         pop = self.tournament_select(fitness)
         pop_copy = pop.copy()
         for parent in pop:  # for every parent
-            child = self.crossover(parent, pop_copy)
+            child = self.two_point_crossover(parent, pop_copy)
             child = self.mutate(child)
             parent[:] = child
         self.pop = pop
